@@ -132,4 +132,4 @@ if st.session_state.step >= 3 and st.session_state.criteria_confirmed:
     #rating process @Loris
         
         rating = cols[4].radio(" ", ["👍", "👎"], horizontal=True, key=f"song_{idx}") 
-        st.session_state.ratings[song["track_id"]] = rating
+        st.session_state.ratings[row["track_id"]] = rating
