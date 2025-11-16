@@ -123,10 +123,11 @@ if st.session_state.step >= 3 and st.session_state.criteria_confirmed:
 
     songs_df = st.session_state.candidate_songs
     
-    for idx, song in enumerate(songs_df.iterrows()):
+    for idx, (track_id, row) in enumerate(songs_df.iterrows()):
         cols = st.columns([3, 3, 2, 2, 2])
-        cols[0].write(song["title"])
-        cols[1].write(song["artist"])
+        
+        cols[0].write(row["title"])
+        cols[1].write(row["artist"])
         
     #rating process @Loris
         
