@@ -56,14 +56,6 @@ if st.session_state.step >= 1:
         st.session_state.playlist_imported = True
         st.session_state.step = 2
         st.success("Playlist imported successfully (mock data shown below).")
-        df = pd.DataFrame(songs_data)
-        st.subheader("Your Playlist Preview")
-        st.dataframe(df, use_container_width=True)
-
-        st.markdown("**Summary:**")
-        st.write("- Total songs: ", len(df))
-        st.write("- Top genres: Pop, Indie Rock, Synthpop")
-        st.write("- Top artists: Taylor Swift, Arctic Monkeys, Billie Eilish")
 
 
 # -------------------------
