@@ -54,7 +54,12 @@ if st.session_state.step >= 1:
 
     if st.button("Import Playlist"):
         st.session_state.playlist_imported = True
-        
+        st.session_state.step = 2
+        st.success("Playlist imported successfully (mock data shown below).")
+        df = pd.DataFrame(songs_data)
+        st.subheader("Your Playlist Preview")
+        st.dataframe(df, use_container_width=True)
+
         st.markdown("**Summary:**")
         st.write("- Total songs: ", len(df))
         st.write("- Top genres: Pop, Indie Rock, Synthpop")
@@ -299,6 +304,11 @@ if st.session_state.step >= 4 and st.session_state.evaluation_done:
         st.session_state.ratings = {}
         st.session_state.playlist_imported = False
         st.session_state.criteria_confirmed = False
+        st.session_state.evaluation_done = False
+        st.experimental_rerun()
+
+    st.button("Save Playlist to Spotify (coming soon)")
+
         st.session_state.evaluation_done = False
         st.experimental_rerun()
 
