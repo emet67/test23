@@ -271,7 +271,7 @@ if st.session_state.step >= 4 and st.session_state.evaluation_done:
 
     st.markdown("**Summary:**")
     st.write(f"- Total songs: {len(df_final)}")
-    st.write(f"- Average recommendation score: {df_final['Score'].mean():.1f}%")
+    st.write(f"- Average recommendation score: {df_final["rating"].mean():.1f}%")
 
     if st.button("Start Over"):
         st.session_state.step = 2
