@@ -38,12 +38,15 @@ if "step" not in st.session_state:
     st.session_state.step = 2
 if "ratings" not in st.session_state:
     st.session_state.ratings = {}
-if "playlist_imported" not in st.session_state:
-    st.session_state.playlist_imported = False
 if "criteria_confirmed" not in st.session_state:
     st.session_state.criteria_confirmed = False
 if "evaluation_done" not in st.session_state:
     st.session_state.evaluation_done = False
+
+# -------------------------
+# STEP 1 — Import Playlist
+# -------------------------
+#deleted
 
 # -------------------------
 # STEP 2 — Generation Criteria
@@ -169,7 +172,7 @@ if st.button("Generate Final Playlist"):
     knn_model.fit(X)
     """
     
-    # Rated songs in form of a list in the same order as ratings
+    # Rated songs in form of a list in the same order as ratings, ist falsch geratete Liste ist ein dict!!! zugeordnet zur track_id!!!
     # Annahme: Songs zur Bewertung in chronologischer Abfolge unter songs_df abgespeichert. sollte stimmen
     rated_track_ids = st.session_state.ratings["track_id"].tolist()
     
