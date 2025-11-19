@@ -125,10 +125,10 @@ if st.session_state.step >= 3 and st.session_state.criteria_confirmed:
 
     
 
-    if st.button("Generate Final Playlist"):
-        st.session_state.evaluation_done = True
-        st.session_state.step = 4
-        st.success("Evaluation submitted! Proceed to Final Playlist.")
+if st.button("Generate Final Playlist"):
+    st.session_state.evaluation_done = True
+    st.session_state.step = 4
+    st.success("Evaluation submitted! Proceed to Final Playlist.")
 
 
 # ------------------------------
