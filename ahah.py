@@ -89,7 +89,7 @@ if st.session_state.step >= 3 and st.session_state.criteria_confirmed:
     s_genres = gmi[["genre_id", "main_category_id"]]
 
     t = pd.read_csv("data/tracks_small.csv")
-    s_t = pd.DataFrame({"track_id": t["track_id"], "genres_all": t["genres_all"].fillna("[]").apply(literal_eval), "title": t["title"], "artist": t["artist"]})
+    s_t = pd.DataFrame({"track_id": t["track_id"], "genres_all": t["genres_all"].apply(literal_eval), "title": t["title"], "artist": t["artist"]})
 
     def rand_track_genre(main_cat_id, n):
         genre_ids = list(set(s_genres.loc[s_genres["main_category_id"] == main_cat_id, "genre_id"]))
