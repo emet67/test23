@@ -279,15 +279,9 @@ if st.session_state.step >= 4 and st.session_state.evaluation_done:
     st.write(f"- Average recommendation score: {df_final['Score'].mean():.1f}%")
 
     if st.button("Start Over"):
-        st.session_state.step = 1
+        st.session_state.step = 2
         st.session_state.ratings = {}
-        st.session_state.playlist_imported = False
         st.session_state.criteria_confirmed = False
-        st.session_state.evaluation_done = False
-        st.experimental_rerun()
-
-    st.button("Save Playlist to Spotify (coming soon)")
-
         st.session_state.evaluation_done = False
         st.experimental_rerun()
 
