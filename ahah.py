@@ -46,15 +46,17 @@ if st.session_state.step >= 2:
     key="similarity")
 
 # Song selecetion for rating 
-    genre_map = {"Rock/Metal/Punk": 1, "Pop/Synth": 2, "Electronic/IDM": 3, "Hip-Hop/RnB/Funk": 4, 
+    genre_map = {"Rock/Metal/Punk": 1, "Pop/Synth": 2, "Electronic/IDM": 3, "Hip-Hop/RnB/Funk": 4,    
     "Jazz/Blues": 5, "Classical": 6, "Folk/Country/Americana": 7, "World/Reggae/Latin": 8,
-    "Experimental/Sound Art": 9, "Spoken/Soundtrack/Misc": 10}
+    "Experimental/Sound Art": 9, "Spoken/Soundtrack/Misc": 10}   
 
-    key_genre = st.selectbox("Select Genre:", list(genre_map.keys()))
-    chosen_genre = genre_map[key_genre]
-    n_desired_songs = st.slider("Select desired playlist length (songs):", 5, 30, 15)
+    key_genre = st.selectbox("Select Genre:", list(genre_map.keys()))                                  #the user choses his genre he wishes, recommendations for 
+    chosen_genre = genre_map[key_genre]                                                                #the selected genre gets maped to the associated number 
+    n_desired_songs = st.slider("Select desired playlist length (songs):", 5, 30, 15)                  #the user choses the number of recommended songs
 
-    if st.button("Confirm and Continue"):
+
+# button for continuing the workflow and start the rating process    
+    if st.button("Confirm and Continue"):                                                                    
         st.session_state.criteria_confirmed = True
         st.session_state.step = 3
         st.success("Preferences saved. Proceed to Quick Evaluation.")
@@ -63,19 +65,18 @@ if st.session_state.step >= 2:
 # -------------------------
 # STEP 3 — Quick Evaluation
 # -------------------------
-if st.session_state.step >= 3 and st.session_state.criteria_confirmed:
+if st.session_state.step >= 3 and st.session_state.criteria_confirmed:  
     st.header("Step 3 – Quick song evaluation")
     st.write("Please rate the following songs:")
-    
-    import pandas as pd
+
     from ast import literal_eval
     from random import choice
     
-    gmi = pd.read_csv("data/genre_with_main_identity.csv")
-    s_genres = gmi[["genre_id", "main_category_id"]]
+    gmi = pd.read_csv("data/genre_with_main_identity.csv")                              #reading the data for the genres
+    s_genres = gmi[["genre_id", "main_category_id"]]                                    #the gmi gets reduced to two data points
 
-    t = pd.read_csv("data/tracks_small.csv")
-    s_t = pd.DataFrame({"track_id": t["track_id"], "genres_all": t["genres_all"].apply(literal_eval), "title": t["title"], "artist": t["artist"]})
+    t = pd.read_csv("data/tracks_small.csv")  #importing the data for the tracks
+    s_t = pd.DataFrame({"track_id": t["track_id"], "genres_all": t["genres_all"].fillna("[]").apply(literal_eval), "title": t["title"], "artist": t["artist"]}) 
 
     def rand_track_genre(main_cat_id, n):
         genre_ids = list(set(s_genres.loc[s_genres["main_category_id"] == main_cat_id, "genre_id"]))
@@ -265,4 +266,4 @@ if st.session_state.step >= 4 and st.session_state.evaluation_done:
         st.session_state.evaluation_done = False
         st.experimental_rerun()
 
-    st.button("Save Playlist to")
+    st.button("Save Playlist to Spotify (coming soon)")
