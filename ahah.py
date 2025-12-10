@@ -474,7 +474,7 @@ if st.session_state.step >= 3 and st.session_state.criteria_confirmed:
         if "candidate_songs" not in st.session_state:
             st.session_state.candidate_songs = rand_track_genre(st.session_state.chosen_genre, 5)
 
-        songs_df = st.session_state.candidate_songs
+            songs_df = st.session_state.candidate_songs
 
         # Header row (Songs / Rating)
         header_song_col, header_rating_col = st.columns([3, 2])
