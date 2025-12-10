@@ -484,8 +484,8 @@ if st.session_state.step >= 3 and st.session_state.criteria_confirmed:
             return pd.concat(p_to_rate, ignore_index=True)                                                        #returning the created randomized selection of songs
 
             # Generate candidate songs ONCE for the whole group        
-            if "candidate_songs" not in st.session_state:
-                st.session_state.candidate_songs = rand_track_genre(st.session_state.chosen_genre, 5)
+        if "candidate_songs" not in st.session_state:
+            st.session_state.candidate_songs = rand_track_genre(st.session_state.chosen_genre, 5)
 
             songs_df = st.session_state.candidate_songs
 
