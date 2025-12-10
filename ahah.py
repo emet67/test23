@@ -330,7 +330,7 @@ if st.session_state.step >= 2:
         # BEFORE confirming → show full criteria form
         if st.session_state.step == 2:
 
-            col1 = st.columns(1)
+            col1, = st.columns(1)
 
             with col1:
                 genre_map = {
