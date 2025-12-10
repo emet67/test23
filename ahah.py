@@ -357,7 +357,7 @@ if st.session_state.step >= 2:
 
             # Confirm button
             if st.button("✅ Confirm criteria & start rating", use_container_width=True):
-                if similarity_raw is None or genre_raw is None:
+                if genre_raw is None:
                     # "Popup" style warning 
                     st.markdown(
                         """
@@ -370,13 +370,12 @@ if st.session_state.step >= 2:
                             font-weight: 500;
                             margin-top: 0.5rem;
                             text-align: center;">
-                            Please choose both a similarity level and a preferred genre before continuing.
+                            Please choose a preferred genre before continuing.
                         </div>
                         """,
                         unsafe_allow_html=True,
                     )
                 else:
-                    st.session_state["similarity"] = similarity_raw
                     st.session_state.chosen_genre = genre_map[genre_raw]
 
                     st.session_state.criteria_confirmed = True
@@ -474,7 +473,7 @@ if st.session_state.step >= 3 and st.session_state.criteria_confirmed:
         if "candidate_songs" not in st.session_state:
             st.session_state.candidate_songs = rand_track_genre(st.session_state.chosen_genre, 5)
 
-            songs_df = st.session_state.candidate_songs
+        songs_df = st.session_state.candidate_songs
 
         # Header row (Songs / Rating)
         header_song_col, header_rating_col = st.columns([3, 2])
