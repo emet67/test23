@@ -466,7 +466,7 @@ if st.session_state.step >= 3 and st.session_state.criteria_confirmed:
 
             poss_songs = s_t[gen]
             n_sample = min(n, len(poss_songs))
-            return candidates.sample(n_sample, replace=False).reset_index(drop=True)
+            return poss_songs.sample(n_sample, replace=False).reset_index(drop=True)
 
         # Generate candidate songs ONCE for the whole group        
         if "candidate_songs" not in st.session_state:
