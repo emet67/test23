@@ -11,7 +11,6 @@ import matplotlib.pyplot as plt
 from sklearn.neighbors import NearestNeighbors  # Machine Learning algorithm
 from sklearn.preprocessing import StandardScaler
 from ast import literal_eval
-from random import choice
 
 candidate_songs = []
 
