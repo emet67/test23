@@ -16,8 +16,11 @@ from ast import literal_eval
 # ---------------------------------------------
 
 def get_conn():                                                     # Define get function to connect with sqlite3
-    return sqlite3.connect("data/app.db")
-
+    try:
+        conn = sqlite3.connect("data/app.db")
+        return conn
+    else:
+        st.error("Database connection failed! Please check, that you downloaded it and left it in the folder 'data'")
 DB = get_conn()                                                     # assign the database to the variable DB
 
 st.set_page_config(
@@ -733,7 +736,7 @@ if st.session_state.step >= 4 and st.session_state.evaluation_done:
             if avg_values:
                 y_pos = np.arange(len(avg_labels))
 
-                # ✨ Define 5 colors (you can change these hex codes as you like)
+                # ✨ Define 5 colors
                 bar_colors = [
                     "#6366F1",  # indigo
                     "#22C55E",  # green
