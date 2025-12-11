@@ -647,8 +647,6 @@ if st.session_state.step >= 4 and st.session_state.evaluation_done:
             st.success(msg)
             st.session_state.final_success_message = False
 
-        })
-
         df_final = s_t[s_t["track_id"].isin(st.session_state.recommended_ids)][["title", "artist"]]
         df_final_display = df_final.reset_index(drop=True)
         df_final_display.index = df_final_display.index + 1
