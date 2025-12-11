@@ -647,11 +647,6 @@ if st.session_state.step >= 4 and st.session_state.evaluation_done:
             st.success(msg)
             st.session_state.final_success_message = False
 
-        t = pd.read_sql_query("SELECT * FROM tracks_small", DB)
-        s_t = pd.DataFrame({
-            "track_id": t["track_id"],
-            "title": t["title"],
-            "artist": t["artist"]
         })
 
         df_final = s_t[s_t["track_id"].isin(st.session_state.recommended_ids)][["title", "artist"]]
