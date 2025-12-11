@@ -17,7 +17,7 @@ from ast import literal_eval
 
 def get_conn():                                                     # Define get function to connect with sqlite3
     try:
-        conn = sqlite3.connect("data/apph.db")
+        conn = sqlite3.connect("apph.db")
         return conn
     except sqlite3.Error:
         st.error("Database connection failed! Please check, that you downloaded it and left it in the folder 'data'")
