@@ -328,7 +328,7 @@ if st.session_state.step >= 2:
             col1, = st.columns(1)
 
             with col1:
-                genre_map = {
+                genre_map = {                                                                    #initializing a dictionary with all the genres to choose from
                     "Rock/Metal/Punk": 1, "Pop/Synth": 2, "Electronic/IDM": 3,
                     "Hip-Hop/RnB": 4, "Jazz/Blues": 5, "Classical": 6,
                     "Folk/Country/Americana": 7, "World/Reggae/Latin": 8,
@@ -336,7 +336,7 @@ if st.session_state.step >= 2:
                     "Funk": 11
                 }
 
-                genre_raw = st.selectbox(
+                genre_raw = st.selectbox(                                                       #selectbox for the user to choose the desired genre
                     "Preferred genre",
                     list(genre_map.keys()),
                     index=None,                     
@@ -456,16 +456,15 @@ if st.session_state.step >= 3 and st.session_state.criteria_confirmed:
         })
     
         def rand_track_genre(main_cat_id, n):                                                                     #implementing the function giving out random songs, with input of number of songs to rate (n) and the chosen main genre (main_cat_id) 
-            genre_ids = set(s_genres.loc[s_genres["main_category_id"] == main_cat_id, "genre_id"])                #constructing a list with all sub genres matching the chosen genre
-            gen = s_t["genres_all"].apply(lambda ids: any(g in genre_ids for g in ids))                                                  
+            genre_ids = set(s_genres.loc[s_genres["main_category_id"] == main_cat_id, "genre_id"])                #constructing a set with all sub genres matching the chosen genre
+            gen = s_t["genres_all"].apply(lambda ids: any(g in genre_ids for g in ids))                           #boolean mask that has the ability to filter out all songs that have one of the subgrenes g from genre_ids that match the main_cat_id                       
 
-            poss_songs = s_t[gen]
-            n_sample = min(n, len(poss_songs))
-            return poss_songs.sample(n_sample, replace=False).reset_index(drop=True)
+            poss_songs = s_t[gen]                                                                                 #we filter out a dataframe using our boolean mask gen with all songs having at least one of the sub genres as attribute
+            return poss_songs.sample(n, replace=False).reset_index(drop=True)                                     #n songs get randomly chosen from the poss_songs and returned in a dataframe with a newly set index 0,1,2, ..., n-1
 
         # Generate candidate songs ONCE for the whole group        
         if "candidate_songs" not in st.session_state:
-            st.session_state.candidate_songs = rand_track_genre(st.session_state.chosen_genre, 5)
+            st.session_state.candidate_songs = rand_track_genre(st.session_state.chosen_genre, 5)                #generating a dataframe of five randomly chosen songs and save them in the streamlit session
 
         songs_df = st.session_state.candidate_songs
 
@@ -568,10 +567,10 @@ if st.session_state.step >= 3 and st.session_state.criteria_confirmed:
                         # ------------------------------
                         # START MACHINE LEARNING PART 
                         # ------------------------------
-                        features = pd.read_sql("SELECT * FROM features", DB, index_col="track_id")
+                        features = pd.read_sql("SELECT * FROM features", DB, index_col="track_id")          # Read out all the features for every song in the database from table "features"
 
                         feature_cols = [
-                            "mfcc_01_mean", "mfcc_02_mean", "mfcc_03_mean", "mfcc_04_mean", "mfcc_05_mean",
+                            "mfcc_01_mean", "mfcc_02_mean", "mfcc_03_mean", "mfcc_04_mean", "mfcc_05_mean", # define which features are taken into consideration by the algorithm
                             "mfcc_06_mean", "mfcc_07_mean", "mfcc_08_mean", "mfcc_09_mean", "mfcc_10_mean",
                             "rmse_01_mean",
                             "spectral_centroid_01_mean",
